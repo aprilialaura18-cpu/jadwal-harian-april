@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Harian April 🌸</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Quicksand for a soft, rounded, aesthetic look -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        'soft-pink': '#ffe4e6', // rose-100
+                        'blush': '#fecdd3',     // rose-200
+                        'deep-pink': '#fb7185', // rose-400
+                        'text-pink': '#881337', // rose-900
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar for aesthetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff1f2; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fecdd3; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fda4af; 
+        }
+
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Smooth check animation */
+        .checkbox-custom:checked + div {
+            background-color: #fb7185;
+            border-color: #fb7185;
+        }
+        .checkbox-custom:checked + div svg {
+            display: block;
+        }
+        
+        .task-enter {
+            animation: slideIn 0.4s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100 min-h-screen text-text-pink font-sans selection:bg-pink-300 selection:text-white pb-12">
+
+    <div class="max-w-2xl mx-auto pt-10 px-4 sm:px-6">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <div class="inline-block p-3 rounded-full bg-white shadow-sm mb-4">
+                <i class="ph-fill ph-flower-lotus text-4xl text-deep-pink"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Hai, April! ✨</h1>
+            <p class="text-rose-700 text-lg font-medium" id="greeting-text">Semoga harimu menyenangkan!</p>
+            <p class="text-sm text-rose-500 mt-1" id="current-date"></p>
+        </header>
+
+        <!-- Input Section -->
+        <main class="glass rounded-3xl p-6 md:p-8 shadow-xl shadow-pink-200/50 mb-8">
+            <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                <i class="ph ph-plus-circle text-2xl text-deep-pink"></i>
+                Tambah Kegiatan
+            </h2>
+            
+            <form id="task-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Waktu -->
+                    <div class="flex flex-col">
+                        <label class="text-sm font-semibold text-rose-800 mb-1 ml-1">Waktu</label>
+                        <input type="time" id="task-time" required
+                            class="bg-white/80 border-2 border-pink-100 focus:border-deep-pink focus:ring-0 rounded-2xl px-4 py-2.5 outline-none transition-all text-gray-700 font-medium">
+                    </div>
+                    
+                    <!-- Kategori -->
+                    <div class="flex flex-col md:col-span-2">
+                        <label class="text-sm font-semibold text-rose-800 mb-1 ml-1">Kategori</label>
+                        <select id="task-category" required
+                            class="bg-white/80 border-2 border-pink-100 focus:border-deep-pink focus:ring-0 rounded-2xl px-4 py-2.5 outline-none transition-all text-gray-700 font-medium cursor-pointer">
+                            <option value="Rutinitas">🔄 Rutinitas</option>
+                            <option value="Hobi">🎨 Hobi</option>
+                            <option value="Penting">⭐ Penting</option>
+                            <option value="Santai">☕ Waktu Santai</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Kegiatan -->
+                <div class="flex flex-col">
+                    <label class="text-sm font-semibold text-rose-800 mb-1 ml-1">Nama Kegiatan</label>
+                    <div class="relative">
+                        <input type="text" id="task-name" placeholder="Misal: Skincare-an, Baca Novel, dll..." required autocomplete="off"
+                            class="w-full bg-white/80 border-2 border-pink-100 focus:border-deep-pink focus:ring-0 rounded-2xl px-4 py-3 outline-none transition-all text-gray-700">
+                        <button type="submit" 
+                            class="absolute right-2 top-2 bg-gradient-to-r from-deep-pink to-rose-400 hover:from-rose-500 hover:to-rose-400 text-white p-2 rounded-xl shadow-md transform hover:scale-105 transition-all">
+                            <i class="ph-bold ph-paper-plane-right text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <!-- Schedule List Section -->
+        <section>
+            <div class="flex justify-between items-end mb-4 px-2">
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    <i class="ph ph-calendar-check text-2xl text-deep-pink"></i>
+                    Jadwal Hari Ini
+                </h2>
+                <span class="text-sm font-semibold bg-pink-200 text-pink-800 px-3 py-1 rounded-full shadow-sm" id="task-counter">0/0 Selesai</span>
+            </div>
+
+            <div id="empty-state" class="hidden flex-col items-center justify-center py-12 text-center">
+                <i class="ph-fill ph-ghost text-6xl text-pink-200 mb-4 animate-bounce"></i>
+                <p class="text-rose-400 font-medium text-lg">Jadwalmu masih kosong, nih.</p>
+                <p class="text-sm text-rose-300">Yuk, isi dengan kegiatan seru hari ini!</p>
+            </div>
+
+            <ul id="task-list" class="space-y-3">
+                <!-- Tasks will be injected here via JS -->
+            </ul>
+        </section>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // DOM Elements
+        const form = document.getElementById('task-form');
+        const timeInput = document.getElementById('task-time');
+        const categoryInput = document.getElementById('task-category');
+        const nameInput = document.getElementById('task-name');
+        const taskList = document.getElementById('task-list');
+        const emptyState = document.getElementById('empty-state');
+        const taskCounter = document.getElementById('task-counter');
+        const currentDateEl = document.getElementById('current-date');
+        const greetingText = document.getElementById('greeting-text');
+
+        // State
+        let tasks = JSON.parse(localStorage.getItem('aprilTasks')) || [];
+
+        // Category Colors Mapping
+        const categoryStyles = {
+            'Rutinitas': 'bg-blue-100 text-blue-700 border-blue-200',
+            'Hobi': 'bg-purple-100 text-purple-700 border-purple-200',
+            'Penting': 'bg-rose-100 text-rose-700 border-rose-200',
+            'Santai': 'bg-teal-100 text-teal-700 border-teal-200'
+        };
+
+        // Set Date and Greeting
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            currentDateEl.innerText = now.toLocaleDateString('id-ID', options);
+
+            const hour = now.getHours();
+            let greeting = "Semoga harimu menyenangkan!";
+            if (hour >= 5 && hour < 12) greeting = "Selamat Pagi, semangat terus ya! ☀️";
+            else if (hour >= 12 && hour < 15) greeting = "Selamat Siang, jangan lupa istirahat! 🌼";
+            else if (hour >= 15 && hour < 18) greeting = "Selamat Sore, waktunya bersantai! ☕";
+            else greeting = "Selamat Malam, waktunya me-time! 🌙";
+            
+            greetingText.innerText = greeting;
+        }
+
+        // Save to LocalStorage
+        function saveTasks() {
+            localStorage.setItem('aprilTasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        // Add Task
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newTask = {
+                id: Date.now().toString(),
+                time: timeInput.value,
+                category: categoryInput.value,
+                name: nameInput.value,
+                completed: false
+            };
+
+            tasks.push(newTask);
+            
+            // Sort tasks by time
+            tasks.sort((a, b) => a.time.localeCompare(b.time));
+            
+            saveTasks();
+            
+            // Reset input (keep category)
+            timeInput.value = '';
+            nameInput.value = '';
+            nameInput.focus();
+        });
+
+        // Toggle Task Completion
+        window.toggleTask = (id) => {
+            tasks = tasks.map(task => {
+                if (task.id === id) {
+                    return { ...task, completed: !task.completed };
+                }
+                return task;
+            });
+            saveTasks();
+        };
+
+        // Delete Task
+        window.deleteTask = (id) => {
+            const confirmDelete = confirm("Hapus kegiatan ini?");
+            if (confirmDelete) {
+                tasks = tasks.filter(task => task.id !== id);
+                saveTasks();
+            }
+        };
+
+        // Render Tasks to DOM
+        function renderTasks() {
+            taskList.innerHTML = '';
+            
+            if (tasks.length === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                taskCounter.innerText = `0/0 Selesai`;
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            }
+
+            let completedCount = 0;
+
+            tasks.forEach(task => {
+                if (task.completed) completedCount++;
+
+                const li = document.createElement('li');
+                li.className = `task-enter flex items-center justify-between p-4 rounded-2xl transition-all duration-300 ${
+                    task.completed 
+                    ? 'bg-white/40 opacity-70 border border-transparent' 
+                    : 'bg-white shadow-sm hover:shadow-md border border-pink-100 hover:border-pink-300'
+                }`;
+
+                const catStyle = categoryStyles[task.category] || 'bg-gray-100 text-gray-700';
+
+                li.innerHTML = `
+                    <div class="flex items-center gap-4 flex-1">
+                        <!-- Custom Checkbox -->
+                        <label class="relative flex items-center justify-center cursor-pointer">
+                            <input type="checkbox" class="checkbox-custom sr-only" ${task.completed ? 'checked' : ''} onchange="toggleTask('${task.id}')">
+                            <div class="w-6 h-6 border-2 border-pink-300 rounded-full flex items-center justify-center transition-colors duration-200">
+                                <svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                        </label>
+                        
+                        <div class="flex flex-col flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-sm font-bold ${task.completed ? 'text-gray-400' : 'text-deep-pink'}">${task.time}</span>
+                                <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded border ${catStyle} ${task.completed ? 'opacity-50' : ''}">
+                                    ${task.category}
+                                </span>
+                            </div>
+                            <span class="text-base font-medium ${task.completed ? 'line-through text-gray-400' : 'text-gray-800'}">
+                                ${task.name}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="deleteTask('${task.id}')" class="ml-4 text-rose-300 hover:text-red-500 hover:bg-red-50 p-2 rounded-xl transition-colors">
+                        <i class="ph-bold ph-trash text-lg"></i>
+                    </button>
+                `;
+                taskList.appendChild(li);
+            });
+
+            // Update Counter
+            taskCounter.innerText = `${completedCount}/${tasks.length} Selesai`;
+        }
+
+        // Initialize
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update time every minute
+        renderTasks();
+
+    </script>
+</body>
+</html>
